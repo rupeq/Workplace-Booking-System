@@ -1,1 +1,3 @@
-# workplace_booking_system
+# Workplace booking system
+
+# The final project of the trainee program at ITechArt
