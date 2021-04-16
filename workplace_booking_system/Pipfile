@@ -1,0 +1,24 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "*"
+djangorestframework = "*"
+psycopg2-binary = "*"
+pytest = "*"
+pynamodb = "*"
+django-cors-headers = "*"
+phonenumbers = "*"
+djangorestframework-simplejwt = "*"
+django-phone-verify = "==0.1.1"
+arrow = "*"
+google-auth = "*"
+google-api-python-client = "*"
+google = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.8"

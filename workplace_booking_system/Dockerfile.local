@@ -1,0 +1,14 @@
+FROM python:3.8-slim
+ENV PYTHONUNBUFFERED 1
+WORKDIR /app
+COPY Pipfile* /app/
+
+RUN pip install pipenv \
+    && pipenv install --deploy --system --ignore-pipfile
+
+COPY entrypoint.local.sh /app/
+RUN chmod +x entrypoint.local.sh
+
+COPY workplace_booking_system /app/
+
+CMD ./entrypoint.local.sh
