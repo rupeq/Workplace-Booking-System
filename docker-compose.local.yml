@@ -1,0 +1,51 @@
+version: '3.7'
+
+volumes:
+  dynamodb_data:
+
+services:
+  client:
+    container_name: client
+    build:
+      context: client
+      dockerfile: Dockerfile.local
+    volumes:
+      - ./client/:/app
+      - /app/node_modules
+    ports:
+      - 3001:3000
+
+  dynamodb:
+    image: amazon/dynamodb-local
+    command: -jar DynamoDBLocal.jar -sharedDb -dbPath /home/dynamodblocal
+    hostname: dynamodb-local
+    container_name: dynamodb-local
+    ports:
+      - 8042:8000
+    volumes:
+      - ./dynamodb_data:/home/dynamodblocal/data
+
+  postgres:
+    image: postgres:12-alpine
+    ports:
+      - 5434:5432
+    env_file:
+      .env
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data/
+
+  web:
+    build:
+      context: workplace_booking_system
+      dockerfile: Dockerfile.local
+    volumes:
+      - ./workplace_booking_system/:/app
+    ports:
+      - 8000:8000
+    depends_on:
+      - postgres
+      - dynamodb
+    env_file:
+      - .env
+
+

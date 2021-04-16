@@ -1,0 +1,20 @@
+name: Run Python Tests
+on:
+  pull_request:
+  push:
+    branches: [main, dev]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Python 3
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+      - name: Install environment and run test
+        run: |
+          pip install pipenv
+          pipenv install --dev pytest
+          pipenv run pytest
